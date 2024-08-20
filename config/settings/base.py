@@ -13,6 +13,8 @@ DEFAULT_APP = [
 CREATED_APP = [
     "apps.core.apps.CoreConfig",
     "apps.reader.apps.ReaderConfig",
+    "apps.book.apps.BookConfig",
+    "apps.myread.apps.MyreadConfig",
 ]  # custom apps goe here
 
 THIRD_PARTY_APP = [
