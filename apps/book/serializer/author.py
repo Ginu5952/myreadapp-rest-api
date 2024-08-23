@@ -4,7 +4,7 @@ from apps.book.models import Author
 class AuthorSerializer(serializers.ModelSerializer):
 
     # force django REST to recognize the method
-    name = serializers.CharField()
+    name = serializers.CharField(read_only=True)
     username = serializers.SerializerMethodField()
 
     def get_username(self,obj):
