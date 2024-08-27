@@ -1,17 +1,30 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view,permission_classes,authentication_classes
 from rest_framework.response import Response
 from rest_framework import status
 from apps.book.models import Tag
 from apps.book.serializer import TagSerializer
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
-#Function-base view
-@api_view() # by default , it uses a 'GET' method
+"""
+curl http://127.0.0.1.8000/api/v1/book/tag/
+token_header = 'Authentication: Token 8c77ffe9946181bc30c823b3b4e2fed4b20beae0'
+
+curl -H 'Authorization: Token 8c77ffe9946181bc30c823b3b4e2fed4b20beae0' http://127.0.0.1:8000/api/v1/book/tag/
+
+
+"""
+
+
+@api_view() # Define our http methods
+#@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def list_tags(request):
+    # ORM
+    tags = Tag.objects.all() # Complex Data type
 
-    # Get all authors using ORM
-    tags = Tag.objects.all()
+    # DeSerialization
+    data = TagSerializer(tags, many=True) # Convert complex data type to primitive Python types
 
-    # Deserialize using the AuthorSerializer
-    data = TagSerializer(tags, many=True) # convert complex data type to primitive python types
-
+    # Return JSOn
     return Response(data.data, status=status.HTTP_200_OK)
