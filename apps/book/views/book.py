@@ -6,8 +6,11 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from apps.book.models import Book,Author
-
+from rest_framework.views import APIView
 from apps.book.serializer import ReadBookSerializer, CreateBookSerializer
+
+
+#----------------------------------------------------FUNCTIONAL BASED VIEW-------------------------------------------------------
 
 # list book
 @api_view(['GET'])
@@ -43,4 +46,31 @@ def create_book(request):
     
    # return Response({'detail':'Invalid request data', 'error':'Invalid_Request'}, status=status.HTTP_400_BAD_REQUEST)
 
+
+#----------------------------------------------CLASS BASED VIEW-------------------------------------------------
+
+class BookView(APIView):
+    # GET 
+    def get(self, request):
+        # gET BOOKS FROM THE DATABASE USING orm
+        books = Book.objects.all()
+
+        # Deserialization
+        data = ReadBookSerializer(books, many=True)
+
+        # Return JSON
+        return Response({'data': data.data}, status=status.HTTP_200_OK)
+        
+
+    # POST
+    def post(self,request):
+        pass
+
+    # DELETE
+    def delete(self,request):
+        pass
+
+    # PATCH
+    def patch(self,request):
+        pass
 

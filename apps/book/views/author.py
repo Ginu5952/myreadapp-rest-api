@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from apps.book.models import Author
 from apps.book.serializer import AuthorSerializer
+from rest_framework.generics import RetrieveAPIView,DestroyAPIView, RetrieveDestroyAPIView
 
 #Function-base view
 @api_view(['GET']) # by default , it uses a 'GET' method
@@ -15,3 +16,20 @@ def list_authors(request):
     data = AuthorSerializer(authors, many=True)
 
     return Response(data.data, status=status.HTTP_200_OK)
+
+
+class DetailAuthor(RetrieveDestroyAPIView):
+    # how do we handle generic views
+    # ORM 
+    queryset = Author.objects.all()
+
+
+    # Serializer
+    serializer_class = AuthorSerializer
+
+
+class DeleteAuthor(DestroyAPIView):
+
+    queryset = Author.objects.all()
+    #Serializer
+    serializer_class = AuthorSerializer
