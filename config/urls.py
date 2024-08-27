@@ -20,5 +20,6 @@ from django.urls import path,include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('api/v1/book/', include('apps.book.urls', namespace='book-urls')),
-   
+    path('api/v1/reader/', include('apps.reader.urls', namespace='reader-urls')),
+    path('api/v1/auth/',include('dj_rest_auth.urls'))
 ]

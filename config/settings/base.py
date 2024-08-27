@@ -19,6 +19,8 @@ CREATED_APP = [
 
 THIRD_PARTY_APP = [
     'rest_framework',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
 ]  # third party apps goe here
 
 INSTALLED_APPS = [*DEFAULT_APP, *CREATED_APP, *THIRD_PARTY_APP]
@@ -80,3 +82,13 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# Set default settings for rest framework
+REST_FRAMEWORK = {
+        'DEFAULT_AUTHENTICATION_CLASSES':[
+            'rest_framework.authentication.TokenAuthentication'
+        ]
+        
+
+}

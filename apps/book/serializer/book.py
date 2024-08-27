@@ -5,18 +5,17 @@ from apps.book.models import Book
 
 
 class ReadBookSerializer(serializers.ModelSerializer):
-
-    tag = TagSerializer(many=True)
+    tags = TagSerializer(many=True)
     authors = AuthorSerializer(many=True)
 
-
     class Meta:
-        model = Book
-        fields = '__all__' 
+        model = Book 
+        fields = '__all__'
+        # depth = 1
 
 class CreateBookSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Book
-        #fields = '__all__' 
+        model = Book 
+        #fields = '__all__'
         exclude = ('authors', )
